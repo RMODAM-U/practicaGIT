@@ -24,20 +24,30 @@ namespace ejercicioTelegrama
 
         private void btnCalcularPrecio_Click(object sender, EventArgs e)
         {
-            string textoTelegrama = txtTelegrama.Text;
+            string textoTelegrama;
             char tipoTelegrama;
             int numPalabras = 0;
             double coste;
 
-            // Determinar el tipo de telegrama
-            tipoTelegrama = chkUrgente.Checked ? 'u' : 'o';
+            // Leer el contenido del telegrama
+            textoTelegrama = txtTelegrama.Text;
 
-            // Obtener el número de palabras de la cadena
+            // Determinar el tipo de telegrama según el RadioButton seleccionado
+            if (rbUrgente.Checked)
+            {
+                tipoTelegrama = 'u';
+            }
+            else
+            {
+                tipoTelegrama = 'o';
+            }
+
+            // Calcular el número de palabras del telegrama
             string[] palabras = textoTelegrama.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
             numPalabras = palabras.Length;
 
             // Calcular el coste según el tipo de telegrama
-            if (tipoTelegrama == 'o') // Telegrama ordinario
+            if (tipoTelegrama == 'o')
             {
                 if (numPalabras <= 10)
                 {
@@ -48,7 +58,7 @@ namespace ejercicioTelegrama
                     coste = 2.5 + 0.5 * (numPalabras - 10);
                 }
             }
-            else // Telegrama urgente
+            else // tipoTelegrama == 'u'
             {
                 if (numPalabras <= 10)
                 {
@@ -60,8 +70,13 @@ namespace ejercicioTelegrama
                 }
             }
 
-            // Mostrar el coste en el TextBox sin formato específico
-            txtPrecio.Text = coste.ToString() + " euros";
+            // Mostrar el coste en el TextBox correspondiente
+            txtPrecio.Text = coste.ToString() + " euros"; // Mostrar sin formato decimal
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
     
